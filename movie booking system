@@ -1,0 +1,135 @@
+class moviename:
+    def movies(self):
+        print("""
+        1. Demon Slayer
+        2. F1
+        3. Minecraft
+        4. Conjuring
+        """)
+
+class movietype(moviename):
+    def movie_type(self):
+        ch = int(input("enter the choice: "))
+        if ch == 1:
+            self.movie = "Demon Slayer"
+        elif ch == 2:
+            self.movie = "F1"
+        elif ch == 3:
+            self.movie = "Minecraft"
+        elif ch == 4:
+            self.movie = "Conjuring"
+        else:
+            print("invalid choice")
+            self.movie = None
+        print(f"you selected {self.movie}")
+        return self.movie
+
+class seat_type(movietype):
+    def seatt_ype(self):
+        print("""
+        1. Executive = 100
+        2. Premium   = 500
+        3. Platinum  = 1000
+        """)
+
+        executive = list(range(1, 20))    
+        premium   = list(range(21, 40))   
+        platinum  = list(range(41, 60))   
+
+        
+        booked = []
+        price=0
+        ch = int(input("choose your seat category (1/2/3): "))
+        
+        if ch == 1:
+            category = "Executive"
+            base = executive
+            price = 100
+        elif ch == 2:
+            category = "Premium"
+            base = premium
+            price = 500
+        elif ch == 3:
+            category = "Platinum"
+            base = platinum
+            price = 1000
+        else:
+            print("invalid category")
+            return
+
+        available = []
+        for s in base:
+            if s not in booked:
+                available.append(s)
+
+        if not available:
+            print(f"No seats available in {category}.")
+            return
+
+        print(f"Available seats in {category}: {available}")
+
+    
+        n = int(input("How many tickets do you want to book? "))
+
+        
+        if n <= 0:
+            print("Please enter a positive number.")
+            return
+        if n > len(available):
+            print(f"Only {len(available)} seats are available in {category}.")
+            return
+
+        
+        booked_now = []
+        for i in range(n):  
+            seat_no = int(input(f"Enter seat number {i+1} of {n}: "))
+
+            
+            if seat_no not in base:
+                print("Seat number not in this category.")
+                return
+
+           
+            available = []
+            for s in base:
+                if s not in booked:
+                    available.append(s) 
+            
+            booked.append(seat_no)
+            booked_now.append(seat_no)
+            
+
+        
+        remaining = []
+        for s in base:
+            if s not in booked:
+                remaining.append(s)
+
+        print(f"All booked seats in this order: {booked_now}")
+        print(f"Remaining available seats in {category}: {remaining}")
+
+
+        
+        base_amount = price * n
+
+            
+        gst_rate = 0.18
+        gst_amount = base_amount * gst_rate
+        total = base_amount + gst_amount
+
+        print("\n----- BILL -----")
+        print(f"Movie     : {self.movie}")
+        print(f"Category  : {category}")
+        print(f"Price     : {price} x {n} = {base_amount}")
+        print(f"GST 18%   : {gst_amount}")
+        print(f"Total     : {total}")
+        print("--------------\n")
+
+
+
+obj = seat_type()
+obj.movies()
+obj.movie_type()
+obj.seatt_ype()
+
+
